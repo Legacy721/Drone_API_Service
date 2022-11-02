@@ -79,10 +79,180 @@ Postman(For testing )
 Steps by step for building and runing the project locally
 
 
-Clone the project from the link 
+Clone the project from the link https://github.com/Legacy721/Drone_API_Service.git
 
 
 
+Testing the API
+
+Open Postman to test the API
+
+Registering a drone:
+
+Register a drone using the endpoint localhost:8085/api/v1/drone/register The payload should be in json format like this
+
+{
+
+    "serialNumber": "Q23RT5676697",
+    "model": "Lightweight",
+    "weightLimit": 500.00,
+    "batteryCapacity": 0.60
+    
+}
+
+The response should be in this json format:
+
+{
+    "result": "success",
+    "serialNumber": "Q23RT5676697",
+    "message": "Drone registered successfully",
+    "timeStamp": "2022-11-02T22:10:40.969986"
+}
+
+
+
+
+Checking available drones in order to load Medications;
+
+Here is the endpoint- localhost:8085/api/v1/drone/getAvailableDrones
+
+The response should be in this json format:
+
+{
+    "result": "success",
+    "timeStamp": "2022-11-02T22:10:46.403088",
+    "availableDrones": [
+        {
+            "serialNumber": "Q23RT5676697",
+            "model": "Lightweight",
+            "weightLimit": 500.0,
+            "batteryCapacity": 0.60,
+            "state": "IDLE"
+        }
+    ]
+}
+
+
+Loading a drone with medications;
+
+Here is the endpoint: localhost:8085/api/v1/drone/loadDrone
+
+The request body should be in this json format:
+
+{
+    "source":"Benin",
+    "serialNumber":"Q23RT5676697",
+    "destination":"Abuja",
+    "code":"LX3451"
+}
+
+The response should be in this json format:
+
+{
+    "result": "success",
+    "serialNumber": "Q23RT5676697",
+    "message": "Drone Loaded Successfully",
+    "timeStamp": "2022-11-02T22:11:05.373165"
+}
+
+
+Checking loaded medication items for a given drone;
+
+Here is the endpoint: localhost:8085/api/v1/drone/getLoadedMedicationDetails
+
+For the request body, you will need to pass in the unique serial number of the drone that was loaded with medications.
+So the request body should be in this json format:
+
+{
+    "serialNumber":"Q23RT5676697"
+}
+
+The response body would be in this format below:
+
+{
+    "result": "success",
+    "serialNumber": "Q23RT5676697",
+    "medication": {
+        "code": "LX3452",
+        "name": "Cepthrin",
+        "weight": 150.0,
+        "image": "legacy80Z"
+    },
+    "timeStamp": "2022-11-02T22:11:11.306648"
+}
+
+
+Check drone battery level for a given drone;
+
+Here is the endpoint: localhost:8085/api/v1/drone/checkBatteryLevel
+
+The request body should be in this format:
+{
+    "serialNumber":"Q23RT5676697"
+}
+
+The response body should be in this format:
+
+{
+    "status": "success",
+    "serialNumber": "Q23RT5676697",
+    "batteryLevel": "60%",
+    "timeStamp": "2022-11-02T22:10:54.182214"
+}
+
+
+Deliver Load;
+
+Here is the endpoint: localhost:8085/api/v1/drone/deliverLoad
+
+The request body should be in this format:
+
+{
+    "serialNumber":"Q23RT5676697"
+}
+
+The response body should be in this format:
+
+{
+    "result": "success",
+    "serialNumber": "Q23RT5676697",
+    "message": "Drone delivered successfully",
+    "timeStamp": "2022-11-02T22:11:18.254363"
+}
+
+
+Get Loaded drones:
+
+Here is the endpoint: localhost:8085/api/v1/drone/getLoadedDrones
+
+The response body should be in this format
+
+{
+    "result": "success",
+    "timeStamp": "2022-11-02T22:11:30.393711",
+    "availableDrones": []
+}
+
+
+Get Delivered Drones:
+
+Here is the endpoint: localhost:8085/api/v1/drone/getDeliveredDrones
+
+The response should be in this format;
+
+{
+    "result": "success",
+    "timeStamp": "2022-11-02T22:11:23.962635",
+    "availableDrones": [
+        {
+            "serialNumber": "Q23RT5676697",
+            "model": "Lightweight",
+            "weightLimit": 500.0,
+            "batteryCapacity": 0.60,
+            "state": "DELIVERED"
+        }
+    ]
+}
 
 
 
